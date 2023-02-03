@@ -14,17 +14,16 @@ const emojiDictionary = {
   "😴": "Sleeping"
 };
 
-export default function App() {
-  // const [userInput, setUserInput] = useState("");
+// console.log(Object.keys(emojiDictionary));
+var emojisWeKnow = Object.keys(emojiDictionary);
 
-  // function inputChangeHandler(event) {
-  // console.log(event.target);
-  // console.log(event.target.value);
-  //   setUserInput(event.target.value);
-  // }
+export default function App() {
+  
+
+
   const [userInput, setUserInput] = useState("");
   function emojiInputHandler(event) {
-    // console.log(event.target.value);
+
     var userInput = event.target.value;
     var meaning = emojiDictionary[userInput];
 
@@ -34,6 +33,13 @@ export default function App() {
     }
     setUserInput(meaning);
   }
+  
+  function emojiClickHandler(emoji) {
+    // console.log(emoji);
+    var meaning = emojiDictionary[emoji];
+    setUserInput(meaning);
+  }
+
 
   return (
     <div className="App">
@@ -41,12 +47,23 @@ export default function App() {
         inside <span style={{ color: color }}>outtt...</span>
       </h1>
       <input onChange={emojiInputHandler}></input>
-      {/* <input onChange={inputChangeHandler}></input>
-
-      <div>Welcome {userInput}</div> */}
+      
       <div>
         <span style={{ fontWeight: "bold" }}>{userInput}</span>
       </div>
+
+      <h3>Emojis We Know</h3>
+      {emojisWeKnow.map(function (emoji) {
+        return (
+          <span
+            onClick={() => emojiClickHandler(emoji)}
+            style={{ fontSize: "2rem", padding: "0.5rem", cursor: "pointer" }}
+            key={emoji}
+          >
+            {emoji}{" "}
+          </span>
+        );
+      })}
     </div>
   );
 }
